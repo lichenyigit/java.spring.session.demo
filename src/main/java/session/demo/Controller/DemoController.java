@@ -6,13 +6,14 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.session.MapSession;
 import org.springframework.session.SessionRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import session.demo.bean.MapSessionX;
 import session.demo.util.CommonUtil;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @ResponseBody
@@ -25,10 +26,12 @@ public class DemoController {
     @Autowired
     SessionRepository sessionRepository;
 
-    @GetMapping("/create")
-    public String create() {
+    @GetMapping("/login")
+    public String create(HttpSession session) {
+
+
+        logger.info("sessionId-->"+session.getId());
         String sessionId = CommonUtil.generateSessionId();
-        logger.info("sessionId-->"+sessionId);
         MapSessionX mySession = new MapSessionX(sessionId);
         mySession.setCreationTime(System.currentTimeMillis());
         mySession.setMaxInactiveIntervalInSeconds(10);

@@ -59,8 +59,6 @@ public class MapSessionX{
         if (this.maxInactiveInterval < 0) {
             return false;
         } else {
-            System.out.println(TimeUnit.SECONDS.toMillis((long)this.maxInactiveInterval));
-            System.out.println(now - TimeUnit.SECONDS.toMillis((long)this.maxInactiveInterval));
             return now - TimeUnit.SECONDS.toMillis((long)this.maxInactiveInterval) >= this.lastAccessedTime;
         }
     }
